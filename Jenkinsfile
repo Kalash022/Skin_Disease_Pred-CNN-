@@ -1,11 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     
     stages {
         stage('Clone Repository') {
             steps {
-                // Clone the repository (handled automatically in a multibranch pipeline)
-                git url: 'https://github.com/Kalash022/Skin_Disease_Pred-CNN-.git', branch: 'main'
+                git url: 'https://github.com/Kalash022/Skin_Disease_Pred-CNN.git', branch: 'main'
             }
         }
         stage('Build Docker Image') {
