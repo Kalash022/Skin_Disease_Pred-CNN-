@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from keras.models import load_model
 import numpy as np
 import cv2
@@ -7,6 +7,10 @@ import os
 app = Flask(__name__)
 
 model = load_model('skin_disease_model.h5')
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # This serves the index.html file
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -23,14 +27,10 @@ def predict():
     predictions = model.predict(img)
     class_index = np.argmax(predictions, axis=1)[0]
 
-    labels = ['Disease 1', 'Disease 2', 'Disease 3']  # Update with your actual labels
+    labels = ['Disease 1', 'Disease 2', 'Disease 3']  
     predicted_label = labels[class_index]
 
     return jsonify({'predicted_disease': predicted_label})
-
-@app.route('/')
-def home():
-    return "Welcome to the Skin Disease Detection API! Use /predict to get predictions."
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
