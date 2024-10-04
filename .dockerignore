@@ -1,0 +1,16 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+myenv/
+
+# Ignore model files
+saved_model/
+
+# Ignore git and Docker metadata
+.git
+.dockerignore
+Dockerfile

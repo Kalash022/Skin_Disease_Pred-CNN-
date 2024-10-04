@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skin-disease-backend
+  labels:
+    app: skin-disease-backend
+spec:
+  replicas: 1  # Number of replicas to run
+  selector:
+    matchLabels:
+      app: skin-disease-backend
+  template:
+    metadata:
+      labels:
+        app: skin-disease-backend
+    spec:
+      containers:
+      - name: skin-disease-backend
+        image: skin-disease-backend:latest  # Your Docker image
+        ports:
+        - containerPort: 5000  # Port your app is listening on
+        resources:
+          requests:
+            memory: "256Mi"  # Minimum memory requested
+            cpu: "500m"  # Minimum CPU requested
+          limits:
+            memory: "512Mi"  # Maximum memory limit
+            cpu: "1"  # Maximum CPU limit
