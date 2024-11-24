@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload an Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("https://images.unsplash.com/photo-1674702727317-d29b2788dc4a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVkaWNhbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    
+        .upload-session {
+            display: flex;
+            flex-direction: row;
+            width: 700px; /* Container width */
+            height: 400px; /* Container height */
+            background: rgba(255, 255, 255, 0.85); /* Slightly transparent background */
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, .15);
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+        }
+    
+        .upload-left {
+            width: 300px; /* Width of the image section */
+            background-image: url("https://media.allure.com/photos/5af5b896cc7715489321f551/1:1/w_1600,h_1600,c_limit/md-skincare-promo-social.jpg");
+            background-size: cover;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+    
+        .upload-form {
+            padding: 60px 40px; /* Form padding */
+            background: transparent; /* Transparent background for consistency */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 400px;
+        }
+    
+        .upload-form h4 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #000;
+            opacity: 0.85;
+        }
+    
+        .upload-form label {
+            font-size: 14px;
+            color: #000;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+    
+        .upload-form .form-group {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+    
+        .upload-form input[type="file"] {
+            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, .1);
+            border-radius: 6px;
+        }
+    
+        .upload-form button {
+            -webkit-appearance: none;
+            min-width: 120px;
+            padding: 15px 50px;
+            margin-top: 15px;
+            background-color: rgb(182, 157, 230);
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 24px;
+            transition: all .3s ease;
+            cursor: pointer;
+        }
+    
+        .upload-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px -2px rgba(182, 157, 230, .65);
+        }
+    
+        .logout-link {
+            margin-top: 30px;
+            font-size: 15px;
+            color: rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+            transition: color .3s ease;
+        }
+    
+        .logout-link:hover {
+            color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+    
+    
+</head>
+<body>
+    <div class="upload-session">
+        <div class="upload-left">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg enable-background="new 0 0 300 302.5" version="1.1" viewBox="0 0 300 302.5" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <style type="text/css">
+                    .st01 { fill: #fff; }
+                </style>
+                <path class="st01" d="..."></path>
+            </svg>
+        </div>
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <h4>Upload an Image</h4>
+            <div class="form-group">
+                <label for="file">Choose an image to analyze:</label>
+                <input type="file" name="file" id="file" accept="image/*" required>
+            </div>
+            <button type="submit">Upload & Analyze</button>
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+<div class="result-page">
+    <div class="result-container">
+        <div class="result-left">
+            <h2>Detected Skin Disease</h2>
+            <p><strong>Disease:</strong> {{ lesion }}</p>
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+            <p><strong>Learn More:</strong> 
+                <a href="{{ resource_link }}" target="_blank" class="learn-more-link">Click here</a>
+            </p>
+            <h3>Helpful Resources</h3>
+            <ul class="resource-list">
+                <li><a href="https://www.aad.org/public/diseases" target="_blank">American Academy of Dermatology</a></li>
+                <li><a href="https://www.mayoclinic.org" target="_blank">Mayo Clinic - Skin Conditions</a></li>
+                <li><a href="https://www.nhs.uk/conditions/skin-cancer/" target="_blank">NHS - Skin Cancer Info</a></li>
+            </ul>
+        </div>
+        <div class="result-right">
+            <h2>Uploaded Image</h2>
+            <img src="data:image/jpeg;base64,{{ img_data }}" alt="Uploaded Image" class="uploaded-image">
+        </div>
+    </div>
+    <div class="action-links">
+        <a href="{{ url_for('upload_file') }}" class="link">Upload Another Image</a>
+        <a href="{{ url_for('logout') }}" class="link">Logout</a>
+    </div>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-image: url("https://images.unsplash.com/photo-1674702727317-d29b2788dc4a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVkaWNhbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .result-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .result-container {
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        max-width: 900px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, .15);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+    }
+
+    .result-left,
+    .result-right {
+        padding: 30px;
+        width: 50%;
+    }
+
+    .result-left {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .result-left h2,
+    .result-right h2 {
+        font-size: 24px;
+        color: #000;
+        margin-bottom: 15px;
+    }
+
+    .result-left p {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.8);
+        margin-bottom: 15px;
+    }
+
+    .result-left ul {
+        padding-left: 20px;
+    }
+
+    .result-left ul li {
+        margin-bottom: 10px;
+    }
+
+    .result-left ul li a {
+        color: #007BFF;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .result-left ul li a:hover {
+        color: #0056b3;
+    }
+
+    .result-right img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-links {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .action-links .link {
+        font-size: 16px;
+        text-decoration: none;
+        padding: 12px 20px;
+        background-color: rgb(182, 157, 230);
+        color: #fff;
+        border-radius: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .action-links .link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px -2px rgba(182, 157, 230, 0.65);
+    }
+
+    .learn-more-link {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .learn-more-link:hover {
+        color: #0056b3;
+    }
+</style>
+{% endblock %}
