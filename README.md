@@ -1,1 +1,1 @@
-# Skin_Disease_Pred-CNN-# Skin Disease Detection WebApp
+# Skin Disease Prediction-CNN-# Skin Disease Detection WebApp
