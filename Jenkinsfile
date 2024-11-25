@@ -1,28 +1,56 @@
 pipeline {
-    agent any  // This allows the pipeline to run on any available agent
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'kalash022/skin_disease_pred_cnn'
+        GIT_CREDENTIALS_ID = 'github-credentials-id'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id'
+        GIT_REPO_URL = 'https://github.com/Kalash022/Skin_Disease_Pred-CNN-.git'
+        BRANCH_NAME = 'main'
+    }
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/Kalash022/Skin_Disease_Pred-CNN-.git', branch: 'main'
+                echo 'Cloning the repository...'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "*/${BRANCH_NAME}"]],
+                    userRemoteConfigs: [[url: "${GIT_REPO_URL}", credentialsId: "${GIT_CREDENTIALS_ID}"]]
+                ])
             }
         }
+
         stage('Build Docker Image') {
             steps {
+                echo 'Building Docker image...'
                 script {
-                    sh 'docker build -t skin-disease-backend:latest .'
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
                 }
             }
         }
-        stage('Run Docker Container') {
+
+        stage('Push Docker Image to DockerHub') {
             steps {
+                echo 'Pushing Docker image to DockerHub...'
                 script {
-                    sh 'docker stop skin-disease-container || true'
-                    sh 'docker rm skin-disease-container || true'
-                    
-                    sh 'docker run -d --name skin-disease-container -p 5000:5000 skin-disease-backend:latest'
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh """
+                            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                            docker push ${DOCKER_IMAGE}:latest
+                        """
+                    }
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline executed successfully. Docker image pushed to DockerHub.'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for errors.'
         }
     }
 }
