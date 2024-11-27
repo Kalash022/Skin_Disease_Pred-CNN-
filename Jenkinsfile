@@ -35,7 +35,23 @@ pipeline {
             echo 'Pipeline executed successfully. Docker image built locally.'
         }
         failure {
-            echo 'Pipeline failed. Check the logs for errors.'
+            echo 'Pipeline failed. Sending email notification...'
+            script {
+                emailext(
+                    subject: "Jenkins Build Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        Hi,
+
+                        The Jenkins build for the job '${env.JOB_NAME}' (#${env.BUILD_NUMBER}) has failed.
+                        
+                        Check the logs for more details: ${env.BUILD_URL}
+
+                        Regards,
+                        Jenkins
+                    """,
+                    to: 'kalash.asati21@st.niituniversity.in'
+                )
+            }
         }
     }
 }
