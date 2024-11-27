@@ -31,7 +31,18 @@ pipeline {
         failure {
             script {
                 echo 'Pipeline failed. Sending email notification...'
-                emailext body: 'ASDFGHJKL;', replyTo: 'aniketasa30@gmail.com', subject: 'TEST', to: 'kalash.asati21@st.niituniversity.in'
+                emailext(
+                    subject: "Jenkins Build Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <h3>Jenkins Build Failure</h3>
+                        <p>The build for job <b>'${env.JOB_NAME}'</b> (Build #${env.BUILD_NUMBER}) has failed.</p>
+                        <p>Check the logs for more details: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                        <p>Regards,<br>Jenkins</p>
+                    """,
+                    to: 'kalash.asati21@st.niituniversity.in',
+                    replyTo: 'no-reply@example.com',
+                    mimeType: 'text/html'
+                )
             }
         }
         success {
