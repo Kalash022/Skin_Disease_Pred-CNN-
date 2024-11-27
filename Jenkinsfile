@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'kalash022/skin_disease_pred_cnn'
         GIT_CREDENTIALS_ID = 'github-credentials-id'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id'
         GIT_REPO_URL = 'https://github.com/Kalash022/Skin_Disease_Pred-CNN-.git'
         BRANCH_NAME = 'main'
     }
@@ -29,25 +28,11 @@ pipeline {
                 }
             }
         }
-
-        stage('Push Docker Image to DockerHub') {
-            steps {
-                echo 'Pushing Docker image to DockerHub...'
-                script {
-                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh """
-                            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                            docker push ${DOCKER_IMAGE}:latest
-                        """
-                    }
-                }
-            }
-        }
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully. Docker image pushed to DockerHub.'
+            echo 'Pipeline executed successfully. Docker image built locally.'
         }
         failure {
             echo 'Pipeline failed. Check the logs for errors.'
