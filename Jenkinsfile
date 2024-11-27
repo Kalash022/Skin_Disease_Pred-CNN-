@@ -2,6 +2,9 @@ pipeline {
     agent any
 
     environment {
+        DOCKER_IMAGE = 'kalash022/skin_disease_pred_cnn'
+        GIT_CREDENTIALS_ID = 'github-credentials-id'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id'
         GIT_REPO_URL = 'https://github.com/Kalash022/Skin_Disease_Pred-CNN-.git'
         BRANCH_NAME = 'main'
     }
@@ -13,7 +16,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: "*/${BRANCH_NAME}"]],
-                    userRemoteConfigs: [[url: "${GIT_REPO_URL}"]]
+                    userRemoteConfigs: [[url: "${GIT_REPO_URL}", credentialsId: "${GIT_CREDENTIALS_ID}"]]
                 ])
             }
         }
@@ -21,32 +24,33 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                // This step forces a failure for testing email functionality
-                sh 'exit 1'
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
+                }
+            }
+        }
+
+        stage('Push Docker Image to DockerHub') {
+            steps {
+                echo 'Pushing Docker image to DockerHub...'
+                script {
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh """
+                            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                            docker push ${DOCKER_IMAGE}:latest
+                        """
+                    }
+                }
             }
         }
     }
 
     post {
-        failure {
-            script {
-                echo 'Pipeline failed. Sending email notification...'
-                emailext(
-                    subject: "Jenkins Build Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <h3>Jenkins Build Failure</h3>
-                        <p>The build for job <b>'${env.JOB_NAME}'</b> (Build #${env.BUILD_NUMBER}) has failed.</p>
-                        <p>Check the logs for more details: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                        <p>Regards,<br>Jenkins</p>
-                    """,
-                    to: 'kalash.asati21@st.niituniversity.in',
-                    replyTo: 'no-reply@example.com',
-                    mimeType: 'text/html'
-                )
-            }
-        }
         success {
-            echo 'Pipeline executed successfully.'
+            echo 'Pipeline executed successfully. Docker image pushed to DockerHub.'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for errors.'
         }
     }
 }
