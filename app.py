@@ -7,24 +7,6 @@ import tensorflow as tf
 from io import BytesIO
 import base64
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
-
-# Load the model
-model = tf.keras.models.load_model('model/model_87.keras')
-
-# Define lesion names and resource links
-lesion_names = [
-    'Melanocytic nevi', 'Melanoma', 'Benign keratosis-like lesions',
-    'Basal cell carcinoma', 'Actinic keratoses', 'Vascular lesions',
-    'Dermatofibroma'
 ]
 
 lesion_resources = {
