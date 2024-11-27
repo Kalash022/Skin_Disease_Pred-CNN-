@@ -40,7 +40,7 @@ pipeline {
                         <p>Regards,<br>Jenkins</p>
                     """,
                     to: 'kalash.asati21@st.niituniversity.in',
-                    replyTo: 'no-reply@example.com',
+                    replyTo: 'aniketasa30@gmail.com',
                     mimeType: 'text/html'
                 )
             }
