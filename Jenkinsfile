@@ -28,6 +28,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Test Failure') {
+            steps {
+                echo 'Introducing a deliberate failure...'
+                sh 'exit 1' // This forces a failure in the pipeline
+            }
+        }
     }
 
     post {
@@ -49,7 +56,7 @@ pipeline {
                         Regards,
                         Jenkins
                     """,
-                    to: 'kalash.asati21@st.niituniversity.in'
+                    to: 'your-email@example.com'
                 )
             }
         }
