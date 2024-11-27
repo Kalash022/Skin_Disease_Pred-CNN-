@@ -31,9 +31,7 @@ pipeline {
         failure {
             script {
                 echo 'Pipeline failed. Sending email notification...'
-                emailext(
-                    emailext body: 'ASDFGHJKL;', replyTo: 'aniketasa30@gmail.com', subject: 'TEST', to: 'kalash.asati21@st.niituniversity.in'
-                )
+                emailext body: 'ASDFGHJKL;', replyTo: 'aniketasa30@gmail.com', subject: 'TEST', to: 'kalash.asati21@st.niituniversity.in'
             }
         }
         success {
