@@ -56,7 +56,7 @@ pipeline {
                         Regards,
                         Jenkins
                     """,
-                    to: 'your-email@example.com'
+                    to: 'kalash.asati21@st.niituniversity.in'
                 )
             }
         }
