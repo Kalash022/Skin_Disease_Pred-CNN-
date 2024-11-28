@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Detection - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Page Setup */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #ffffff; /* White background */
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(86, 61, 124, 0.9); /* Deep purple with transparency */
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .header-content h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header-content p {
+            font-size: 12px;
+            margin: 5px 0 0;
+        }
+
+        /* Main Section */
+        .main-content {
+            margin: 100px auto 0;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .main-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .signin-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .signin-container button {
+            /* -webkit-appearance: none; */
+            min-width: 160px;
+            padding: 15px 40px;
+            background-color: rgb(182, 157, 230);
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 24px;
+            transition: all .3s ease;
+            cursor: pointer;
+        }
+
+        .signin-container button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px -2px rgba(182, 157, 230, .65);
+        }
+
+        /* Specific Button Style for the Main Page */
+        .button-main-page {
+            margin-top: 50px;
+            width: 70%; /* Adjust as needed */
+            max-width: 300px; /* Prevent it from becoming too large */
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto; /* Center the button horizontally */
+            margin-right: auto; /* Center the button horizontally */
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Welcome to Skin Disease Detection</h1>
+            <p>Your partner in skin cancer awareness and detection</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>What is Skin Cancer?</h2>
+        <p>Skin cancer is the abnormal growth of skin cells, often caused by prolonged exposure to ultraviolet (UV) radiation. It can develop on areas of the skin exposed to the sun, but it may also occur in areas not ordinarily exposed to sunlight.</p>
+        <p>There are three main types of skin cancer:</p>
+        <ul>
+            <li><b>Basal cell carcinoma:</b> Often occurs on sun-exposed areas and rarely spreads.</li>
+            <li><b>Squamous cell carcinoma:</b> Can spread more easily than basal cell carcinoma but is treatable if detected early.</li>
+            <li><b>Melanoma:</b> The most dangerous form of skin cancer, known for its ability to spread to other parts of the body.</li>
+        </ul>
+        <p>Skin cancer is preventable and treatable if caught early. Awareness and timely action are the keys to combating this condition.</p>
+        <p>Our Skin Disease Detection System uses advanced ML to help identify skin diseases from images, giving you a quick and reliable analysis.</p>
+    </div>
+
+    <div class="signin-container">
+        <!-- Apply the specific button class -->
+        <button class="button-main-page" onclick="location.href='{{ url_for('login') }}'">Sign In</button>
+    </div>
+</body>
+</html>
