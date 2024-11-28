@@ -1,4 +1,3 @@
-<!--This is a comment. Comments are not displayed in the browser-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,16 +10,77 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            min-height: 100vh;
             background-image: url("https://images.unsplash.com/photo-1674702727317-d29b2788dc4a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVkaWNhbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-    
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #563d7c; /* Deep purple */
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .header-content h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header-content p {
+            font-size: 12px;
+            margin: 5px 0 0;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #222;
+            color: #ddd;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0 0 5px;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-links li a {
+            text-decoration: none;
+            color: #bbb;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links li a:hover {
+            color: #fff;
+        }
+
+        /* Upload Section */
         .upload-session {
+            margin: 120px auto 60px; /* Adjust for fixed header and footer */
             display: flex;
             flex-direction: row;
             width: 700px; /* Container width */
@@ -30,7 +90,7 @@
             box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, .15);
             backdrop-filter: blur(10px); /* Frosted glass effect */
         }
-    
+
         .upload-left {
             width: 300px; /* Width of the image section */
             background-image: url("https://media.allure.com/photos/5af5b896cc7715489321f551/1:1/w_1600,h_1600,c_limit/md-skincare-promo-social.jpg");
@@ -38,7 +98,7 @@
             border-top-left-radius: 8px;
             border-bottom-left-radius: 8px;
         }
-    
+
         .upload-form {
             padding: 60px 40px; /* Form padding */
             background: transparent; /* Transparent background for consistency */
@@ -47,7 +107,7 @@
             align-items: flex-start;
             width: 400px;
         }
-    
+
         .upload-form h4 {
             margin-bottom: 30px;
             font-size: 28px;
@@ -55,19 +115,19 @@
             color: #000;
             opacity: 0.85;
         }
-    
+
         .upload-form label {
             font-size: 14px;
             color: #000;
             opacity: 0.8;
             font-weight: 400;
         }
-    
+
         .upload-form .form-group {
             margin-bottom: 25px;
             width: 100%;
         }
-    
+
         .upload-form input[type="file"] {
             font-size: 16px;
             padding: 12px;
@@ -75,7 +135,7 @@
             border: 1px solid rgba(0, 0, 0, .1);
             border-radius: 6px;
         }
-    
+
         .upload-form button {
             -webkit-appearance: none;
             min-width: 120px;
@@ -89,12 +149,12 @@
             transition: all .3s ease;
             cursor: pointer;
         }
-    
+
         .upload-form button:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 8px -2px rgba(182, 157, 230, .65);
         }
-    
+
         .logout-link {
             margin-top: 30px;
             font-size: 15px;
@@ -102,25 +162,22 @@
             text-decoration: none;
             transition: color .3s ease;
         }
-    
+
         .logout-link:hover {
             color: rgba(0, 0, 0, 0.8);
         }
     </style>
-    
-    
 </head>
 <body>
-    <div class="upload-session">
-        <div class="upload-left">
-            <?xml version="1.0" encoding="UTF-8"?>
-            <svg enable-background="new 0 0 300 302.5" version="1.1" viewBox="0 0 300 302.5" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                <style type="text/css">
-                    .st01 { fill: #fff; }
-                </style>
-                <path class="st01" d="..."></path>
-            </svg>
+    <div class="header">
+        <div class="header-content">
+            <h1>Skin Disease Detection System</h1>
+            <p>Fast and accurate skin disease detection powered by ML</p>
         </div>
+    </div>
+
+    <div class="upload-session">
+        <div class="upload-left"></div>
         <form method="POST" enctype="multipart/form-data" class="upload-form">
             <h4>Upload an Image</h4>
             <div class="form-group">
@@ -130,6 +187,15 @@
             <button type="submit">Upload & Analyze</button>
             <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
         </form>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Skin Disease Detection System. All Rights Reserved.</p>
+        <ul class="footer-links">
+            <li><a href="https://www.privacy-policy-template.com" target="_blank">Privacy Policy</a></li>
+            <li><a href="https://www.termsandconditionssample.com" target="_blank">Terms of Use</a></li>
+            <li><a href="https://www.contactusform.com" target="_blank">Contact Us</a></li>
+        </ul>
     </div>
 </body>
 </html>
