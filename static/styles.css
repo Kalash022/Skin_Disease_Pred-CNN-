@@ -1,4 +1,4 @@
-/* General Styles. */
+/* General Styles */
 *,
 *:before,
 *:after {
@@ -97,6 +97,27 @@ button {
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Specific Button Style for the Main Page */
+.button-main-page {
+    margin-top: 50px;
+    width: 70%; /* Adjust as needed */
+    max-width: 300px; /* Prevent it from becoming too large */
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto; /* Center the button horizontally */
+    margin-right: auto; /* Center the button horizontally */
 }
 
 button:hover {
