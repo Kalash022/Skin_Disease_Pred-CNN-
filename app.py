@@ -16,7 +16,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 db = SQLAlchemy(app)
 
-# New Database model
+# Database model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
@@ -52,9 +52,7 @@ if len(lesion_names) != num_classes:
 
 @app.route('/')
 def index():
-    if 'user_id' in session:
-        return redirect(url_for('upload_file'))
-    return redirect(url_for('login'))
+    return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -141,4 +139,4 @@ def upload_file():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
