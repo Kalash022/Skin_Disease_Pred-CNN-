@@ -20,13 +20,13 @@ class FlaskAppTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Tear down the test database."""
+        # Tear down the test database.
         with app.app_context():
             db.session.remove()
             db.drop_all()
 
     def test_register_user(self):
-        """Test the registration of a new user."""
+        # Test the registration of a new user.
         response = self.client.post('/register', data={
             'username': 'newuser',
             'password': 'newpassword'
@@ -39,7 +39,7 @@ class FlaskAppTestCase(unittest.TestCase):
             self.assertTrue(user.username, 'newuser')
 
     def test_login(self):
-        """Test user login."""
+        # Test user login.
         response = self.client.post('/login', data={
             'username': 'testuser',
             'password': 'password123'
@@ -47,7 +47,7 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 302)  # Should redirect on successful login
 
     def test_login_invalid(self):
-        """Test invalid login credentials."""
+        # Test invalid login credentials.
         response = self.client.post('/login', data={
             'username': 'testuser',
             'password': 'wrongpassword'
@@ -55,7 +55,7 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertIn(b'Invalid username or password', response.data)
 
     def test_upload_image_with_login(self):
-        """Test image upload after login."""
+        # Test image upload after login.
         # Login first
         self.client.post('/login', data={
             'username': 'testuser',
